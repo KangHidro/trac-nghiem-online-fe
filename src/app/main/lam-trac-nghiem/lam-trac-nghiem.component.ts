@@ -35,10 +35,15 @@ export class LamTracNghiemComponent implements OnInit {
   getDataCauHoiRandom() {
     this.spinner.show();
     this.tracNghiemUserSvc.getCauHoiUserRandomPaging(this.totalQuiz)
-    .subscribe(res => {
-      this.listCauHoi.data = res.content;
-      this.spinner.hide();
-    }, () => this.spinner.hide());
+      .subscribe(res => {
+        this.listCauHoi.data = res.content;
+        this.listCauHoi.data.forEach(cauHoi => {
+          cauHoi.dapAns = cauHoi.dapAns.sort(() => Math.random() - 0.5);
+          cauHoi.dapAnUserSelected = '';
+        }
+        );
+        this.spinner.hide();
+      }, () => this.spinner.hide());
   }
 
   nextQuiz() {
