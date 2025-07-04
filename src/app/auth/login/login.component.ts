@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { GoogleLoginProvider, SocialAuthService } from 'angularx-social-login';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -16,7 +17,10 @@ export class LoginComponent implements OnInit {
   isLoginUser = false;
   isLoginAdmin = false;
 
+  formLogin: FormGroup;
+
   constructor(
+    private fbd: FormBuilder,
     private authSvc: AuthenticateService,
     private socialAuth: SocialAuthService,
     private router: Router,
@@ -32,6 +36,10 @@ export class LoginComponent implements OnInit {
         this.router.navigateByUrl(UrlConstant.ROUTE.MAIN.MY_ANSWER);
       }
     }
+    this.formLogin = this.fbd.group({
+      username: [''],
+      password: ['']
+    });
   }
 
   // login with google
@@ -58,6 +66,27 @@ export class LoginComponent implements OnInit {
             }
           );
         }
+      }
+    );
+  }
+
+  // login with username and password
+  onLogin() {
+    this.spinner.show();
+    this.authSvc.doLoginUserForm(this.formLogin.value).subscribe(
+      (res) => {
+        this.spinner.hide();
+        this.authSvc.setTokenUser(this.formLogin.value.username);
+        this.authSvc.setAuthData(res);
+        if (this.authSvc.checkRoleAdmin()) {
+          this.router.navigateByUrl(UrlConstant.ROUTE.MANAGEMENT.TRAC_NGHIEM);
+        } else if (this.authSvc.checkRoleUser()) {
+          this.router.navigateByUrl(UrlConstant.ROUTE.MAIN.MY_ANSWER);
+        }
+      },
+      (err) => {
+        this.spinner.hide();
+        this.handlerErrorSvc.handleError(err);
       }
     );
   }

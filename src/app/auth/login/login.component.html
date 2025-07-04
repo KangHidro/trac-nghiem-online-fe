@@ -1,7 +1,18 @@
 <div class="login-container" *ngIf="!isLoginAdmin && !isLoginUser">
   <div class="login-page-btn">
     <p class="title-heading">TRẮC NGHIỆM ONLINE</p>
-    <button nz-button nzType="primary" nzDanger type="button" nzSize="large" (click)="onLoginWithGoogle()"><i
-        class="fab fa-google mr-right-5"></i>Đăng nhập bằng Google</button>
+    <form [formGroup]="formLogin" (ngSubmit)="onLogin()">
+      <input nz-input formControlName="username" placeholder="Tài khoản" />
+      <br>
+      <input nz-input type="password" formControlName="password" placeholder="Mật khẩu"
+        class="mt-5" />
+      <br>
+      <button nz-button nzType="primary" type="submit" nzSize="large" class="mt-15">Đăng
+        nhập</button>
+    </form>
+
+    <!-- <button nz-button nzType="primary" nzDanger type="button" nzSize="large"
+      (click)="onLoginWithGoogle()"><i class="fab fa-google mr-right-5"></i>Đăng nhập bằng
+      Google</button> -->
   </div>
 </div>
