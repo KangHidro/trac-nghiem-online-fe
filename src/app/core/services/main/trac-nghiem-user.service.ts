@@ -26,19 +26,20 @@ export class TracNghiemUserService {
 
   getCauHoiUserRandomPaging(numberOfQuiz: number): Observable<PagedResults<CauHoiTracNghiem>> {
     const params = new HttpParams()
-    .set('page', '0')
-    .set('size', numberOfQuiz.toString());
-    return this.http.get<PagedResults<CauHoiTracNghiem>>(this.tracNghiemApiUrl + '/user/paging', {params})
-    .pipe(catchError(this.handleErrSvc.handleError));
+      .set('page', '0')
+      .set('size', numberOfQuiz.toString())
+      .set('soCau', numberOfQuiz.toString());
+    return this.http.get<PagedResults<CauHoiTracNghiem>>(this.tracNghiemApiUrl + '/user/paging', { params })
+      .pipe(catchError(this.handleErrSvc.handleError));
   }
 
   submitCauTraLoi(baiLamData: SubmitDataCauTraLoi): Observable<KetQuaTracNghiem> {
     return this.http.post<KetQuaTracNghiem>(this.ketQuaTracNghiemApiUrl, baiLamData)
-    .pipe(catchError(this.handleErrSvc.handleError));
+      .pipe(catchError(this.handleErrSvc.handleError));
   }
 
   getKetQuaTracNghiemByEmail(email: string): Observable<KetQuaTracNghiem> {
     return this.http.get<KetQuaTracNghiem>(this.ketQuaTracNghiemApiUrl + `/${email}`)
-    .pipe(catchError(this.handleErrSvc.handleError));
+      .pipe(catchError(this.handleErrSvc.handleError));
   }
 }

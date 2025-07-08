@@ -1,0 +1,19 @@
+[].forEach((cauHoi, i) => {
+  setTimeout(() => {
+    fetch("http://backend.stc.local:8080/trac-nghiem/rest/cau-hoi-trac-nghiem", {
+      "headers": {
+        "accept": "application/json, text/plain, */*",
+        "accept-language": "en-US,en;q=0.9,vi;q=0.8",
+        "authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkdXlsbEBoY211dGUuZWR1LnZuIiwiZXhwIjoxNzUxODE1NTc1LCJpYXQiOjE3NTE3OTc1NzV9.VzSaKmJCENDfQ1tOeX7MUtvclC4WB7pjOsP4tvyBlF_s5dXthQ9hBUvbahH95BOdNceJHBWK4eRMZhmJ6HvtxA",
+        "cache-control": "no-cache",
+        "content-type": "application/json",
+        "pragma": "no-cache"
+      },
+      "referrer": "http://tracnghiem.stc.local/",
+      "body": JSON.stringify(cauHoi),
+      "method": "POST",
+      "mode": "cors",
+      "credentials": "include"
+    });
+  }, 1000 * i);
+});

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -14,11 +14,11 @@ import { Paginate } from 'src/app/shared/widget/paginate/paginate.model';
   templateUrl: './lam-trac-nghiem.component.html',
   styleUrls: ['./lam-trac-nghiem.component.scss']
 })
-export class LamTracNghiemComponent implements OnInit {
+export class LamTracNghiemComponent implements AfterViewInit {
 
   listCauHoi: Paginate<CauHoiTracNghiem> = new Paginate<CauHoiTracNghiem>();
   currentIndex = 0;
-  totalQuiz = 10;
+  totalQuiz = 30;
 
   constructor(
     private spinner: NgxSpinnerService,
@@ -28,7 +28,8 @@ export class LamTracNghiemComponent implements OnInit {
     private nzModalSvc: NzModalService,
   ) { }
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
+    this.totalQuiz = parseInt(window.prompt('Nhập số lượng câu hỏi mong muốn (mặc định 30):', '30') || '30', 10);
     this.getDataCauHoiRandom();
   }
 

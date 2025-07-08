@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { SystemConstant } from 'src/app/core/constants/system.constant';
 import { UrlConstant } from 'src/app/core/constants/url.constant';
+import { DapAnModel } from 'src/app/core/models/main/cau-hoi.model';
 import { KetQuaTracNghiem } from 'src/app/core/models/main/user-tra-loi.model';
 import { AuthenticateService } from 'src/app/core/services/auth/authenticate.service';
 import { TracNghiemUserService } from 'src/app/core/services/main/trac-nghiem-user.service';
@@ -35,13 +36,17 @@ export class CauTraLoiCuaToiComponent implements OnInit {
   loadKetQuaTracNghiemUserLogin() {
     this.spinner.show();
     this.tracNghiemUserSvc.getKetQuaTracNghiemByEmail(this.userEmail)
-    .subscribe(res => {
-      if (res) {
-        this.listKetQuaTracNghiemUser = res;
-        this.fullDiemTong = res.cauTraLois.reduce((sum, obj) => sum += obj.cauHoiTracNghiem.diemSo, 0);
-      }
-      this.spinner.hide();
-    }, () => this.spinner.hide());
+      .subscribe(res => {
+        if (res) {
+          this.listKetQuaTracNghiemUser = res;
+          this.fullDiemTong = res.cauTraLois.reduce((sum, obj) => sum += obj.cauHoiTracNghiem.diemSo, 0);
+        }
+        this.spinner.hide();
+      }, () => this.spinner.hide());
+  }
+
+  getDapAnDung(dapAns: DapAnModel[]): string {
+    return dapAns.find(x => x.dapAnDung)?.noiDungCauTraLoi || '';
   }
 
 }

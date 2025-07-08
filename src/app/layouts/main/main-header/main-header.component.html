@@ -4,14 +4,20 @@
 </div>
 <div class="pull-right">
   <img src="assets/img/user.png" onerror="this.src='assets/img/user.png'" class="avatar pointer"
-  nz-dropdown [nzDropdownMenu]="menuUser">
+    nz-dropdown [nzDropdownMenu]="menuUser">
   <nz-dropdown-menu #menuUser="nzDropdownMenu">
     <ul nz-menu>
-      <li nz-menu-item [routerLink]="[routingLink.QUIZ]"><i class="fas fa-question mr-right-5"></i>Làm trắc nghiệm</li>
-      <li nz-menu-item [routerLink]="[routingLink.PROFILE]"><i class="fas fa-user mr-right-5"></i>Thông tin cá nhân</li>
-      <li nz-menu-item [routerLink]="[routingLink.MY_ANSWER]"><i class="fas fa-server mr-right-5"></i>Dữ liệu của tôi</li>
+      <!-- <li nz-menu-item [routerLink]="[routingLink.QUIZ]"><i class="fas fa-question mr-right-5"></i>Làm trắc nghiệm</li> -->
+      <a href="./main/quiz" target="_self">
+        <li nz-menu-item><i class="fas fa-question mr-right-5"></i>Làm trắc nghiệm</li>
+      </a>
+      <li nz-menu-item [routerLink]="[routingLink.PROFILE]"><i
+          class="fas fa-user mr-right-5"></i>Thông tin cá nhân</li>
+      <li nz-menu-item [routerLink]="[routingLink.MY_ANSWER]"><i
+          class="fas fa-server mr-right-5"></i>Dữ liệu của tôi</li>
       <li nz-menu-divider></li>
-      <li nz-menu-item class="text-red" (click)="logout()"><i class="fas fa-power-off mr-right-5"></i>Đăng xuất</li>
+      <li nz-menu-item class="text-red" (click)="logout()"><i
+          class="fas fa-power-off mr-right-5"></i>Đăng xuất</li>
     </ul>
   </nz-dropdown-menu>
 </div>
